@@ -18,26 +18,6 @@ export default function WeatherHeader({ isDark }) {
       }`}>
         Il meteo di tutto il mondo a portata di mano
       </p>
-
-      {/* <style jsx>{`
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(-30px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes bounce-slow {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-15px); }
-        }
-        
-        .animate-fadeIn {
-          animation: fadeIn 0.8s ease-out;
-        }
-
-        .animate-bounce-slow {
-          animation: bounce-slow 2s ease-in-out infinite;
-        }
-      `}</style> */}
     </div>
   );
 }

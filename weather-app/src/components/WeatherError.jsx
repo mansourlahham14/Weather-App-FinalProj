@@ -13,18 +13,6 @@ export default function WeatherError({ message, isDark }) {
     }`}>
       <span className="text-2xl mr-2">{WEATHER_ICONS.error}</span>
       <span className="text-lg font-semibold">{message}</span>
-
-      {/* <style jsx>{`
-        @keyframes shake {
-          0%, 100% { transform: translateX(0); }
-          25% { transform: translateX(-10px); }
-          75% { transform: translateX(10px); }
-        }
-        
-        .animate-shake {
-          animation: shake 0.5s ease-in-out;
-        }
-      `}</style> */}
     </div>
   );
 }

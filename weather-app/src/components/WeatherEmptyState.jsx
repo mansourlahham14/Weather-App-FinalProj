@@ -14,17 +14,6 @@ export default function WeatherEmptyState({ isDark }) {
       <p className={`text-base mt-2 ${isDark ? 'text-white/50' : 'text-gray-500'}`}>
         Prova con Milano, Tokyo, New York...
       </p>
-
-      {/* <style jsx>{`
-        @keyframes pulse-slow {
-          0%, 100% { opacity: 1; transform: scale(1); }
-          50% { opacity: 0.7; transform: scale(1.1); }
-        }
-        
-        .animate-pulse-slow {
-          animation: pulse-slow 3s ease-in-out infinite;
-        }
-      `}</style> */}
     </div>
   );
 }

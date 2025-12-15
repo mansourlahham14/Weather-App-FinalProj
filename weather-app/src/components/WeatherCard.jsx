@@ -50,35 +50,6 @@ export default function WeatherCard({ weather, isDark }) {
         max={weather.main.temp_max}
         isDark={isDark}
       />
-
-      {/* <style jsx>{`
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(-20px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes slideIn {
-          from { opacity: 0; transform: scale(0.8); }
-          to { opacity: 1; transform: scale(1); }
-        }
-
-        @keyframes float {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-10px); }
-        }
-        
-        .animate-fadeIn {
-          animation: fadeIn 0.6s ease-out;
-        }
-
-        .animate-slideIn {
-          animation: slideIn 0.6s ease-out 0.2s both;
-        }
-
-        .animate-float {
-          animation: float 3s ease-in-out infinite;
-        }
-      `}</style> */}
     </div>
   );
 }
