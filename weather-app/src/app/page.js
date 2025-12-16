@@ -8,10 +8,20 @@ import WeatherError from '../components/WeatherError';
 import WeatherCard from '../components/WeatherCard';
 import WeatherEmptyState from '../components/WeatherEmptyState';
 import ThemeToggle from '../components/ThemeToggle';
+import CityCarousel from '../components/CityCarousel';
 
 export default function WeatherApp() {
   const { city, setCity, weather, loading, error, searchWeather } = useWeather();
   const { isDark, toggleTheme } = useTheme();
+
+  // Gestisce il click dalla carosella
+  const handleCitySelect = (cityName) => {
+    setCity(cityName);
+    // Aspetta un momento per aggiornare lo stato, poi cerca
+    setTimeout(() => {
+      searchWeather(cityName);
+    }, 100);
+  };
 
   return (
     <div className={`min-h-screen bg-gradient-to-br ${getBackgroundGradient(weather, isDark)} transition-all duration-1000 flex items-center justify-center p-4 relative overflow-hidden`}>
@@ -40,6 +50,14 @@ export default function WeatherApp() {
           loading={loading}
           isDark={isDark}
         />
+
+        {/* ⭐ CAROSELLA SOTTO LA SEARCH BAR - mostrata solo quando non c'è meteo */}
+        {!weather && !loading && (
+          <CityCarousel 
+            onCitySelect={handleCitySelect} 
+            isDark={isDark} 
+          />
+        )}
 
         <WeatherError message={error} isDark={isDark} />
 

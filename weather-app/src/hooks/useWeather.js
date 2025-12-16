@@ -9,14 +9,24 @@ export const useWeather = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const searchWeather = async () => {
+  // ⭐ MODIFICATA: ora accetta un parametro opzionale cityToSearch
+  const searchWeather = async (cityToSearch) => {
+    // ⭐ Usa il parametro passato oppure lo stato city
+    const searchCity = cityToSearch || city;
+    
+    // ⭐ Controlla che ci sia una città da cercare
+    if (!searchCity.trim()) {
+      setError('Per favore inserisci una città');
+      return;
+    }
+
     setLoading(true);
     setError('');
 
     try {
-      const data = await fetchWeatherData(city);
+      const data = await fetchWeatherData(searchCity);
       setWeather(data);
-      setCity('');
+      setCity(''); // ⭐ Pulisce l'input dopo la ricerca
     } catch (err) {
       setError(err.message);
       setWeather(null);
