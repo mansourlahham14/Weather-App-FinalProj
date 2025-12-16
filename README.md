@@ -34,6 +34,7 @@ OpenWeather API
 JavaScript (ES6+)
 
 📁 Project Structure
+```
 src/
 ├── app/
 │   └── page.js
@@ -54,7 +55,7 @@ src/
 │   └── weatherService.js
 ├── config/
   └── weather.js
-
+```
 
 
 ▶️ Getting Started
