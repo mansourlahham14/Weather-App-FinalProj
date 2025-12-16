@@ -21,7 +21,7 @@ Consente di consultare il meteo attuale e le previsioni a 5 giorni per qualsiasi
 
 ⚡ Performance ottimizzate con Next.js
 
-🛠️ Tech Stack
+# 🛠️ Tech Stack
 
 Next.js (App Router)
 
@@ -33,7 +33,7 @@ OpenWeather API
 
 JavaScript (ES6+)
 
-📁 Project Structure
+# 📁 Project Structure
 ```
 src/
 ├── app/
@@ -58,7 +58,7 @@ src/
 ```
 
 
-▶️ Getting Started
+# ▶️ Getting Started
 # Install dependencies
 npm install
 
@@ -68,7 +68,7 @@ npm run dev
 
 Apri http://localhost:3000 nel browser.
 
-🧠 Technical Notes
+# 🧠 Technical Notes
 
 Il toggle del tema è renderizzato solo lato client per evitare hydration errors
 
@@ -77,10 +77,10 @@ Custom hooks per una migliore separazione della logica
 API centralizzate in weatherService.js
 
 
-📄 License
+# 📄 License
 
 Questo progetto è rilasciato sotto licenza MIT.
 
-👨‍💻 Mansour Eduardo Lahham
+# 👨‍💻 Mansour Eduardo Lahham
 Sviluppato come progetto Front-End con Next.js e Tailwind CSS.
 
