@@ -1,4 +1,4 @@
-🌦️ Weather App
+#🌦️ Weather App
 
 Una Weather App moderna e responsive sviluppata con Next.js e Tailwind CSS.
 Consente di consultare il meteo attuale e le previsioni a 5 giorni per qualsiasi città, con supporto al tema chiaro/scuro.
