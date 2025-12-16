@@ -44,12 +44,12 @@ export default function ForecastCarousel({ forecast, isDark }) {
       <h3 className={`text-center text-xl font-bold mb-4 transition-colors duration-500 ${
         isDark ? 'text-white/90' : 'text-gray-800'
       }`}>
-        📅 Previsioni prossimi giorni
+        📅 Previsioni dei prossimi 5 giorni
       </h3>
 
       <div className="relative">
         {/* Carousel Container */}
-        <div className="relative h-64 overflow-visible">
+        <div className="relative h-80 overflow-visible">
           <div className="flex items-center justify-center h-full gap-4">
             {visibleForecasts.map((day) => {
               const isCenter = day.index === currentIndex;
@@ -67,25 +67,25 @@ export default function ForecastCarousel({ forecast, isDark }) {
                     transform: `translateX(${position * 20}px) scale(${isCenter ? 1 : 0.85})`,
                   }}
                 >
-                  <div className={`w-56 h-56 rounded-2xl p-6 shadow-xl backdrop-blur-md border-2 transition-all duration-300 ${
+                  <div className={`w-64 h-72 rounded-2xl p-5 shadow-xl backdrop-blur-md border-2 transition-all duration-300 flex flex-col ${
                     isDark
                       ? 'bg-white/10 border-white/30 hover:bg-white/15'
                       : 'bg-white border-gray-200 hover:shadow-2xl'
                   } ${isCenter ? 'ring-4 ring-blue-400/50' : ''}`}>
                     
                     {/* Data */}
-                    <div className={`text-center mb-3 ${
+                    <div className={`text-center mb-2 ${
                       isDark ? 'text-white' : 'text-gray-800'
                     }`}>
-                      <p className="text-lg font-bold">{day.date}</p>
+                      <p className="text-base font-bold">{day.date}</p>
                     </div>
 
                     {/* Icona meteo */}
-                    <div className="flex justify-center mb-3">
+                    <div className="flex justify-center mb-2">
                       <img 
                         src={getWeatherIconUrl(day.icon)} 
                         alt={day.condition}
-                        className="w-20 h-20 drop-shadow-lg"
+                        className="w-16 h-16 drop-shadow-lg"
                       />
                     </div>
 
@@ -100,21 +100,21 @@ export default function ForecastCarousel({ forecast, isDark }) {
                     <div className="flex justify-center items-center gap-3 mb-3">
                       <div className="text-center">
                         <p className={`text-xs ${isDark ? 'text-white/60' : 'text-gray-500'}`}>Max</p>
-                        <p className={`text-2xl font-bold ${isDark ? 'text-orange-400' : 'text-red-500'}`}>
+                        <p className={`text-xl font-bold ${isDark ? 'text-orange-400' : 'text-red-500'}`}>
                           {day.tempMax}°
                         </p>
                       </div>
-                      <div className={`h-10 w-px ${isDark ? 'bg-white/20' : 'bg-gray-300'}`}></div>
+                      <div className={`h-8 w-px ${isDark ? 'bg-white/20' : 'bg-gray-300'}`}></div>
                       <div className="text-center">
                         <p className={`text-xs ${isDark ? 'text-white/60' : 'text-gray-500'}`}>Min</p>
-                        <p className={`text-2xl font-bold ${isDark ? 'text-blue-400' : 'text-blue-600'}`}>
+                        <p className={`text-xl font-bold ${isDark ? 'text-blue-400' : 'text-blue-600'}`}>
                           {day.tempMin}°
                         </p>
                       </div>
                     </div>
 
                     {/* Info aggiuntive */}
-                    <div className={`flex justify-around text-xs ${
+                    <div className={`flex justify-around text-xs mt-auto ${
                       isDark ? 'text-white/70' : 'text-gray-600'
                     }`}>
                       <div className="text-center">
