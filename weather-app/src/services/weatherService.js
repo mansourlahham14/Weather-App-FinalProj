@@ -28,6 +28,7 @@ export const fetchWeatherData = async (city) => {
     throw new Error('Inserisci il nome di una città');
   }
 
+  // ⭐ CORRETTO: usa NEXT_PUBLIC_WEATHER_API_KEY
   const url = `${WEATHER_API_BASE_URL}/weather?q=${city}&appid=${process.env.NEXT_PUBLIC_WEATHER_API_KEY}&units=metric&lang=it`;
 
   const response = await fetch(url);
@@ -41,6 +42,86 @@ export const fetchWeatherData = async (city) => {
 
   const data = await response.json();
   return data;
+};
+
+// ⭐ NUOVA FUNZIONE: Previsioni a 5 giorni
+export const fetchForecastData = async (city) => {
+  if (!city.trim()) {
+    throw new Error('Inserisci il nome di una città');
+  }
+
+  // ⭐ CORRETTO: usa NEXT_PUBLIC_WEATHER_API_KEY
+  const url = `${WEATHER_API_BASE_URL}/forecast?q=${city}&appid=${process.env.NEXT_PUBLIC_WEATHER_API_KEY}&units=metric&lang=it`;
+
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    if (response.status === 404) {
+      throw new Error('Città non trovata');
+    }
+    throw new Error('Errore nel recupero delle previsioni');
+  }
+
+  const data = await response.json();
+  
+  // Raggruppa le previsioni per giorno (OpenWeather restituisce previsioni ogni 3 ore)
+  const dailyForecasts = processForecastData(data.list);
+  
+  return {
+    city: data.city,
+    forecasts: dailyForecasts
+  };
+};
+
+// ⭐ FUNZIONE HELPER: Processa i dati delle previsioni
+const processForecastData = (forecastList) => {
+  const dailyData = {};
+  
+  forecastList.forEach(item => {
+    const date = new Date(item.dt * 1000);
+    const dateKey = date.toLocaleDateString('it-IT', { 
+      weekday: 'short', 
+      day: 'numeric', 
+      month: 'short' 
+    });
+    
+    if (!dailyData[dateKey]) {
+      dailyData[dateKey] = {
+        date: dateKey,
+        temps: [],
+        conditions: [],
+        icons: [],
+        humidity: [],
+        wind: [],
+        timestamp: item.dt
+      };
+    }
+    
+    dailyData[dateKey].temps.push(item.main.temp);
+    dailyData[dateKey].conditions.push(item.weather[0].main);
+    dailyData[dateKey].icons.push(item.weather[0].icon);
+    dailyData[dateKey].humidity.push(item.main.humidity);
+    dailyData[dateKey].wind.push(item.wind.speed);
+  });
+  
+  // Calcola medie e seleziona l'icona più frequente
+  return Object.values(dailyData).slice(0, 5).map(day => ({
+    date: day.date,
+    tempMax: Math.round(Math.max(...day.temps)),
+    tempMin: Math.round(Math.min(...day.temps)),
+    condition: getMostFrequent(day.conditions),
+    icon: getMostFrequent(day.icons),
+    humidity: Math.round(day.humidity.reduce((a, b) => a + b, 0) / day.humidity.length),
+    wind: Math.round(day.wind.reduce((a, b) => a + b, 0) / day.wind.length),
+    timestamp: day.timestamp
+  }));
+};
+
+// ⭐ FUNZIONE HELPER: Trova l'elemento più frequente in un array
+const getMostFrequent = (arr) => {
+  return arr.sort((a, b) =>
+    arr.filter(v => v === a).length - arr.filter(v => v === b).length
+  ).pop();
 };
 
 export const getWeatherIconUrl = (iconCode) => {
@@ -70,3 +151,4 @@ export const getBackgroundGradient = (weatherData, isDark) => {
 
   return theme.default;
 };
+

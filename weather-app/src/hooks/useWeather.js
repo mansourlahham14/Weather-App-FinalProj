@@ -1,11 +1,12 @@
 "use client"
 
 import { useState, useEffect } from 'react';
-import { fetchWeatherData } from '../services/weatherService';
+import { fetchWeatherData, fetchForecastData } from '../services/weatherService'; // ⭐ Aggiungi fetchForecastData
 
 export const useWeather = () => {
   const [city, setCity] = useState('');
   const [weather, setWeather] = useState(null);
+  const [forecast, setForecast] = useState(null); // ⭐ NUOVO STATO per le previsioni
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -24,12 +25,19 @@ export const useWeather = () => {
     setError('');
 
     try {
-      const data = await fetchWeatherData(searchCity);
-      setWeather(data);
+      // ⭐ Fetch SIMULTANEO di meteo corrente E previsioni a 5 giorni
+      const [weatherData, forecastData] = await Promise.all([
+        fetchWeatherData(searchCity),
+        fetchForecastData(searchCity)
+      ]);
+      
+      setWeather(weatherData);
+      setForecast(forecastData); // ⭐ Salva le previsioni
       setCity(''); // ⭐ Pulisce l'input dopo la ricerca
     } catch (err) {
       setError(err.message);
       setWeather(null);
+      setForecast(null); // ⭐ Resetta anche le previsioni in caso di errore
     } finally {
       setLoading(false);
     }
@@ -39,6 +47,7 @@ export const useWeather = () => {
     city,
     setCity,
     weather,
+    forecast, // ⭐ ESPONI forecast
     loading,
     error,
     searchWeather

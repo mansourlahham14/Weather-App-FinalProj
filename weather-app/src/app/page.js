@@ -9,9 +9,10 @@ import WeatherCard from '../components/WeatherCard';
 import WeatherEmptyState from '../components/WeatherEmptyState';
 import ThemeToggle from '../components/ThemeToggle';
 import CityCarousel from '../components/CityCarousel';
+import ForecastCarousel from '../components/ForecastCarousel'; // ⭐ NUOVO IMPORT
 
 export default function WeatherApp() {
-  const { city, setCity, weather, loading, error, searchWeather } = useWeather();
+  const { city, setCity, weather, forecast, loading, error, searchWeather } = useWeather(); // ⭐ Aggiungi forecast
   const { isDark, toggleTheme } = useTheme();
 
   // Gestisce il click dalla carosella
@@ -51,7 +52,7 @@ export default function WeatherApp() {
           isDark={isDark}
         />
 
-        {/* ⭐ CAROSELLA SOTTO LA SEARCH BAR - mostrata solo quando non c'è meteo */}
+        {/* Carosella città - mostrata solo quando non c'è meteo */}
         {!weather && !loading && (
           <CityCarousel 
             onCitySelect={handleCitySelect} 
@@ -62,6 +63,11 @@ export default function WeatherApp() {
         <WeatherError message={error} isDark={isDark} />
 
         <WeatherCard weather={weather} isDark={isDark} />
+
+        {/* ⭐ CAROSELLA PREVISIONI 5 GIORNI - mostrata solo quando c'è meteo caricato */}
+        {weather && forecast && (
+          <ForecastCarousel forecast={forecast} isDark={isDark} />
+        )}
 
         {!weather && !error && !loading && <WeatherEmptyState isDark={isDark} />}
       </div>
